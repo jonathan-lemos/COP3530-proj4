@@ -56,14 +56,21 @@ public class CuckooHashMap<K, V> {
 			V ret = arr1[h1h].getVal();
 			arr1[h1h] = null;
 			size--;
+			if (loadFactor() < 0.25 && capacity() >= 8) {
+				resize(cap / 2);
+			}
 			return ret;
 		}
 		if (arr2[h2h] != null && arr2[h2h].getKey().equals(key)) {
 			V ret = arr2[h2h].getVal();
 			arr2[h2h] = null;
 			size--;
+			if (loadFactor() < 0.25 && capacity() >= 8) {
+				resize(cap / 2);
+			}
 			return ret;
 		}
+
 		return null;
 	}
 
